@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mamadou Saliou Baldé — Data Analyst</title>
+<meta name="description" content="Portfolio Data Analyst — de la comptabilité à la data. Power BI, SQL, Python.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16212C;
+    --paper:#F0EDE6;
+    --paper-alt:#E6E2D6;
+    --rule-blue:#3D5A73;
+    --rule-blue-soft:rgba(61,90,115,0.35);
+    --ledger-red:#9A3324;
+    --brass:#B6862C;
+    --text-muted:#5B6570;
+    --white:#FFFDF9;
+    --display:'Space Grotesk', sans-serif;
+    --body:'Inter', sans-serif;
+    --mono:'IBM Plex Mono', monospace;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* Ledger ruling — the signature motif */
+  .ledger-bg{
+    position:relative;
+    background-image:
+      linear-gradient(var(--rule-blue-soft) 1px, transparent 1px);
+    background-size:100% 42px;
+    background-position:0 12px;
+  }
+  .ledger-bg::before{
+    content:"";
+    position:absolute;
+    top:0; bottom:0;
+    left:56px;
+    width:1.5px;
+    background:var(--ledger-red);
+    opacity:0.55;
+  }
+  @media (max-width:640px){
+    .ledger-bg::before{left:28px;}
+  }
+
+  .wrap{
+    max-width:920px;
+    margin:0 auto;
+    padding:0 80px;
+  }
+  @media (max-width:640px){
+    .wrap{padding:0 44px;}
+  }
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(240,237,230,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(22,33,44,0.1);
+  }
+  nav .wrap{
+    display:flex; justify-content:space-between; align-items:center;
+    padding-top:18px; padding-bottom:18px;
+  }
+  .nav-name{
+    font-family:var(--mono);
+    font-size:0.9rem;
+    letter-spacing:0.02em;
+  }
+  .nav-links{display:flex; gap:28px; list-style:none;}
+  .nav-links a{
+    color:var(--ink); text-decoration:none;
+    font-size:0.9rem; font-weight:500;
+    border-bottom:1.5px solid transparent;
+    transition:border-color 0.2s ease;
+  }
+  .nav-links a:hover, .nav-links a:focus-visible{border-color:var(--brass);}
+  @media (max-width:640px){ .nav-links{gap:16px;} .nav-links a{font-size:0.8rem;} }
+
+  /* HERO */
+  .hero{padding:96px 0 88px;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:0.8rem;
+    color:var(--ledger-red);
+    letter-spacing:0.06em;
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:22px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:26px; height:1.5px;
+    background:var(--ledger-red);
+    display:inline-block;
+  }
+  h1{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:clamp(2.4rem, 5vw, 3.6rem);
+    line-height:1.08;
+    letter-spacing:-0.01em;
+    max-width:11ch;
+  }
+  .hero-sub{
+    margin-top:26px;
+    max-width:52ch;
+    font-size:1.08rem;
+    color:var(--text-muted);
+  }
+  .hero-meta{
+    margin-top:8px;
+    font-family:var(--mono);
+    font-size:0.85rem;
+    color:var(--text-muted);
+  }
+  .cta-row{
+    margin-top:38px;
+    display:flex; gap:14px; flex-wrap:wrap;
+  }
+  .btn{
+    font-family:var(--body);
+    font-weight:600;
+    font-size:0.92rem;
+    padding:13px 22px;
+    border-radius:3px;
+    text-decoration:none;
+    display:inline-block;
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn-primary{background:var(--ink); color:var(--white);}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 6px 16px rgba(22,33,44,0.25);}
+  .btn-ghost{
+    background:transparent; color:var(--ink);
+    border:1.5px solid var(--ink);
+  }
+  .btn-ghost:hover{transform:translateY(-2px); background:var(--ink); color:var(--white);}
+
+  /* SECTION HEADERS */
+  section{padding:64px 0;}
+  .section-head{margin-bottom:44px;}
+  .entry-no{
+    font-family:var(--mono);
+    font-size:0.78rem;
+    color:var(--ledger-red);
+    letter-spacing:0.05em;
+    margin-bottom:10px;
+    display:block;
+  }
+  h2{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:1.8rem;
+  }
+  .section-intro{
+    color:var(--text-muted);
+    margin-top:10px;
+    max-width:58ch;
+  }
+
+  /* SKILLS TABLE */
+  .ledger-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:8px;
+  }
+  .ledger-table th{
+    font-family:var(--mono);
+    font-size:0.72rem;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--text-muted);
+    text-align:left;
+    padding:10px 12px;
+    border-bottom:1.5px solid var(--ink);
+  }
+  .ledger-table td{
+    padding:16px 12px;
+    border-bottom:1px solid rgba(22,33,44,0.12);
+    font-size:0.96rem;
+  }
+  .ledger-table tr:last-child td{border-bottom:1.5px solid var(--ink);}
+  .skill-name{font-weight:600;}
+  .stamp{
+    font-family:var(--mono);
+    font-size:0.72rem;
+    letter-spacing:0.04em;
+    padding:5px 10px;
+    border:1.5px solid var(--brass);
+    color:var(--brass);
+    border-radius:2px;
+    display:inline-block;
+    transform:rotate(-1.5deg);
+    white-space:nowrap;
+  }
+  .stamp.confirme{border-color:var(--ledger-red); color:var(--ledger-red);}
+
+  /* PROJECT CARDS */
+  .project-card{
+    background:var(--white);
+    border:1px solid rgba(22,33,44,0.12);
+    border-left:3px solid var(--rule-blue);
+    border-radius:4px;
+    padding:32px 34px;
+    margin-bottom:22px;
+  }
+  .project-card.upcoming{
+    border-left:3px solid var(--brass);
+    border-style:dashed;
+    background:transparent;
+  }
+  .project-head{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    gap:16px; flex-wrap:wrap;
+    margin-bottom:14px;
+  }
+  .project-title{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:1.25rem;
+  }
+  .project-badge{
+    font-family:var(--mono);
+    font-size:0.72rem;
+    color:var(--rule-blue);
+    border:1px solid var(--rule-blue);
+    padding:4px 9px;
+    border-radius:2px;
+    white-space:nowrap;
+  }
+  .project-desc{color:var(--text-muted); font-size:0.95rem; max-width:65ch;}
+  .project-desc ul{margin:12px 0 0 18px;}
+  .project-desc li{margin-bottom:4px;}
+  .project-link{
+    display:inline-flex; align-items:center; gap:8px;
+    margin-top:18px;
+    font-weight:600; font-size:0.9rem;
+    color:var(--ink);
+    text-decoration:none;
+    border-bottom:1.5px solid var(--brass);
+    padding-bottom:2px;
+  }
+  .project-link:hover{color:var(--ledger-red); border-color:var(--ledger-red);}
+  .embed-frame{
+    margin-top:20px;
+    border:1px solid rgba(22,33,44,0.15);
+    border-radius:4px;
+    overflow:hidden;
+    background:var(--paper-alt);
+    aspect-ratio:16/10;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .embed-frame iframe{width:100%; height:100%; border:0;}
+  .embed-placeholder{
+    font-family:var(--mono);
+    font-size:0.8rem;
+    color:var(--text-muted);
+    text-align:center;
+    padding:20px;
+  }
+
+  /* FOOTER */
+  footer{
+    padding:56px 0 60px;
+    border-top:1px solid rgba(22,33,44,0.12);
+  }
+  .footer-row{
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:16px;
+  }
+  .footer-links{display:flex; gap:22px; list-style:none;}
+  .footer-links a{color:var(--ink); font-size:0.9rem; font-weight:500; text-decoration:none; border-bottom:1.5px solid transparent;}
+  .footer-links a:hover{border-color:var(--brass);}
+  .footer-note{font-family:var(--mono); font-size:0.78rem; color:var(--text-muted);}
+
+  /* reveal animation */
+  .reveal{opacity:0; transform:translateY(14px); transition:opacity 0.6s ease, transform 0.6s ease;}
+  .reveal.visible{opacity:1; transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1; transform:none; transition:none;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <span class="nav-name">M.S. BALDÉ</span>
+    <ul class="nav-links">
+      <li><a href="#competences">Compétences</a></li>
+      <li><a href="#projets">Projets</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero ledger-bg">
+  <div class="wrap">
+    <span class="eyebrow">Écriture N°001 — Profil</span>
+    <h1>De la partie double à la data</h1>
+    <p class="hero-sub">
+      Quatre ans à faire parler les chiffres en comptabilité, à Conakry.
+      Aujourd'hui je les fais parler autrement : Power BI, SQL, Python —
+      certifié Data Analyst (Mines Paris PSL Executive Education, en partenariat avec Liora).
+    </p>
+    <p class="hero-meta">Saint-Ouen-l'Aumône (95) · Île-de-France · Disponible immédiatement</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#projets">Voir mes projets</a>
+      <a class="btn btn-ghost" href="#" target="_blank" rel="noopener">CV (PDF)</a>
+      <a class="btn btn-ghost" href="#" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</header>
+
+<section id="competences">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="entry-no">Écriture N°002</span>
+      <h2>Grand livre des compétences</h2>
+      <p class="section-intro">
+        Niveaux présentés tels quels — sans arrondi à la hausse. Ce que je maîtrise,
+        ce que j'apprends encore, et ce que quatre ans de terrain comptable m'ont déjà appris.
+      </p>
+    </div>
+
+    <table class="ledger-table reveal">
+      <thead>
+        <tr><th>Compétence</th><th>Niveau</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="skill-name">Comptabilité &amp; données opérationnelles (Excel / Sage 100)</td>
+          <td><span class="stamp confirme">Confirmé — 4 ans terrain</span></td>
+        </tr>
+        <tr>
+          <td class="skill-name">Power BI (Power Query, DAX)</td>
+          <td><span class="stamp">Intermédiaire</span></td>
+        </tr>
+        <tr>
+          <td class="skill-name">Excel</td>
+          <td><span class="stamp">Basique</span></td>
+        </tr>
+        <tr>
+          <td class="skill-name">SQL</td>
+          <td><span class="stamp">Débutant</span></td>
+        </tr>
+        <tr>
+          <td class="skill-name">Python</td>
+          <td><span class="stamp">Débutant</span></td>
+        </tr>
+        <tr>
+          <td class="skill-name">Machine Learning</td>
+          <td><span class="stamp">Débutant</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="projets" class="ledger-bg">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="entry-no">Écritures N°003 à N°006</span>
+      <h2>Projets</h2>
+      <p class="section-intro">
+        Chaque projet, du dashboard collectif à l'outil métier fait main.
+      </p>
+    </div>
+
+    <!-- PROJECT 1: FIFA -->
+    <article class="project-card reveal">
+      <div class="project-head">
+        <span class="project-title">Dashboard Power BI — Coupe du Monde FIFA</span>
+        <span class="project-badge">Power BI · Projet d'équipe</span>
+      </div>
+      <div class="project-desc">
+        Projet de fin de formation réalisé avec deux coéquipiers (Camille, Aodren), présenté devant un jury.
+        <ul>
+          <li>964 lignes × 44 colonnes, issues de la fusion de 43 fichiers sources</li>
+          <li>Mesures DAX : ELO Avant, ELO Pendant, ELO Impact</li>
+          <li>Contribution personnelle : pages "Évolution ELO" et "Performances par phase"</li>
+        </ul>
+      </div>
+      <!-- TODO BMS : remplace le contenu de .embed-frame ci-dessous par ton iframe "Publier sur le web" -->
+      <div class="embed-frame">
+        <p class="embed-placeholder">Dashboard interactif à intégrer<br>(lien Power BI "Publier sur le web")</p>
+      </div>
+      <a class="project-link" href="#" target="_blank" rel="noopener">Ouvrir le dashboard en plein écran ↗</a>
+    </article>
+
+    <!-- PROJECT 2: Call Center -->
+    <article class="project-card reveal">
+      <div class="project-head">
+        <span class="project-title">Dashboard Power BI — Centre d'appels (2018–2021)</span>
+        <span class="project-badge">Power BI · Examen individuel</span>
+      </div>
+      <div class="project-desc">
+        Dashboard construit seul, de la donnée brute au rapport final.
+        <ul>
+          <li>Power Query : colonne SLA Compliance, clé composite pour les frais d'appel</li>
+          <li>Table Calendar générée en DAX, 12 mesures DAX</li>
+          <li>3 pages de rapport en français</li>
+        </ul>
+      </div>
+      <div class="embed-frame">
+        <p class="embed-placeholder">Dashboard interactif à intégrer<br>(lien Power BI "Publier sur le web")</p>
+      </div>
+      <a class="project-link" href="#" target="_blank" rel="noopener">Ouvrir le dashboard en plein écran ↗</a>
+    </article>
+
+    <!-- PROJECT 3: Accounting data control -->
+    <article class="project-card reveal">
+      <div class="project-head">
+        <span class="project-title">Contrôle de données opérationnelles — Excel &amp; Sage 100</span>
+        <span class="project-badge">Excel / Sage 100 · Expertise métier</span>
+      </div>
+      <div class="project-desc">
+        Gestion et contrôle de bases de données fournisseurs/clients chez Global Access (Conakry), sur un portefeuille de 20+ fournisseurs actifs.
+        <ul>
+          <li>Détection et correction d'écarts récurrents (factures, règlements, stocks) — fiabilité maintenue à 100% pour les clôtures mensuelles</li>
+          <li>Rapprochements bancaires hebdomadaires et lettrage sur 200+ opérations/mois</li>
+          <li>Suivi quotidien des indicateurs de stock, avec ajustements en lien avec les équipes opérationnelles</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- PROJECT 4: upcoming Streamlit -->
+    <article class="project-card upcoming reveal">
+      <div class="project-head">
+        <span class="project-title">Prochain projet — Python &amp; Streamlit</span>
+        <span class="project-badge">Python · En préparation</span>
+      </div>
+      <div class="project-desc">
+        La prochaine écriture de ce grand livre : un mini-projet en Python et Streamlit,
+        pour continuer à apprendre en public.
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="footer-row">
+      <div>
+        <div class="skill-name" style="font-family:var(--display); font-size:1.05rem;">Mamadou Saliou Baldé</div>
+        <div class="footer-note">Saint-Ouen-l'Aumône (95) · Île-de-France</div>
+      </div>
+      <ul class="footer-links">
+        <li><a href="#" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="mailto:#">E-mail</a></li>
+        <li><a href="#" target="_blank" rel="noopener">CV</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); } });
+  }, {threshold: 0.15});
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
